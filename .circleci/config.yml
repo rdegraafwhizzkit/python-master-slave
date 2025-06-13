@@ -28,11 +28,11 @@ jobs:
     docker:
       - image: amazon/aws-cli
         auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PASSWORD
-    environment:
-      AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-      AWS_ROLE_ARN: $AWS_ROLE_ARN
+          username: ${DOCKERHUB_USER}
+          password: ${DOCKERHUB_PASSWORD}
+#    environment:
+#      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+#      AWS_ROLE_ARN: ${AWS_ROLE_ARN}
     steps:
       - run:
           name: authenticate-and-interact
