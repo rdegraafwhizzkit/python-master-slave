@@ -15,5 +15,8 @@ def configure_logging(level=logging.INFO):
     )
 
     # Set log level to warning for some notoriously chatty modules
-    for name in [k for k in logging.Logger.manager.loggerDict.keys() if any(['boto' in k, 'urllib' in k])]:
+    for name in [k for k in logging.Logger.manager.loggerDict.keys() if any(['botocore' in k, 'urllib' in k])]:
         logging.getLogger(name).setLevel(logging.WARNING)
+
+    for name in [k for k in logging.Logger.manager.loggerDict.keys() if any(['boto3' in k])]:
+        logging.getLogger(name).setLevel(logging.ERROR)
