@@ -48,7 +48,9 @@ jobs:
           #          profile_name: "OIDC-PROFILE"
           role_session_name: "CircleCI-${CIRCLE_WORKFLOW_ID}-${CIRCLE_JOB}"
           session_duration: "3600"
-      - run: |
+      - run:
+        name: Perform some AWS actions
+        command: |
           # See who we are
           aws --no-cli-pager sts get-caller-identity
           # List buckets
@@ -76,6 +78,11 @@ jobs:
 #          command: |
 #            yum install -y amazon-linux-extras which
 #            amazon-linux-extras install -y python3.8
+      - run:
+          name: ss
+          command: |
+            sudo apt-get update
+            sudo apt -y install python3.10-venv
       - run:
           name: Create Virtual Environment
           command: |
