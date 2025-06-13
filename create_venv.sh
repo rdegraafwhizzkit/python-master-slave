@@ -10,11 +10,5 @@ ${PYTHON} -m venv .venv
 . .venv/bin/activate
 pip install --upgrade pip pip-tools
 
-pip-compile dev-requirements.in
 pip-compile requirements.in
-
-pip install --upgrade -r dev-requirements.txt
 pip install --upgrade -r requirements.txt
-
-pre-commit install
-flake8

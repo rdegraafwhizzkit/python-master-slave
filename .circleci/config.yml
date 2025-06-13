@@ -31,6 +31,7 @@ jobs:
           command: "echo Hello, World!"
 
   deploy:
+    resource_class: small
     docker:
       - image: amazon/aws-cli
         <<: *docker-auth
@@ -55,17 +56,19 @@ jobs:
             # List buckets
             aws s3 ls
       - run:
-          name: Test Python
+          name: Install Python 3
           command: |
             yum install -y python3
             python --version
       - run:
-          name: Set up Python
+          name: Create Virtual Environment
           command: |
-            ls -al
             chmod 755 create_venv.sh
             ./create_venv.sh
-            ls -la
+      - run:
+          name: Test
+          command: |
+            which python
 
 # See: https://circleci.com/docs/workflows/
 # https://circleci.com/docs/configuration-reference/#workflows
