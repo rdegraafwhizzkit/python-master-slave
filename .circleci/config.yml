@@ -57,6 +57,7 @@ jobs:
       - run:
           name: Test Python
           command: |
+            yum install -y python3
             python --version
       - run:
           name: Set up Python
