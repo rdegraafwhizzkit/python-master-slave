@@ -2,10 +2,10 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-#docker-auth: &docker-auth
-#  auth:
-#    username: ${DOCKERHUB_USER}
-#    password: ${DOCKERHUB_PASSWORD}
+docker-auth: &docker-auth
+  auth:
+    username: ${DOCKERHUB_USER}
+    password: ${DOCKERHUB_PASSWORD}
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
@@ -32,10 +32,10 @@ jobs:
   deploy:
     docker:
       - image: amazon/aws-cli
-        auth:
-          username: ${DOCKERHUB_USER}
-          password: ${DOCKERHUB_PASSWORD}
-#        <<: *docker-auth
+#        auth:
+#          username: ${DOCKERHUB_USER}
+#          password: ${DOCKERHUB_PASSWORD}
+        <<: *docker-auth
     steps:
       - run:
           name: assume-role-and-interact
