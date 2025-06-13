@@ -30,14 +30,11 @@ jobs:
         auth:
           username: ${DOCKERHUB_USER}
           password: ${DOCKERHUB_PASSWORD}
-#    environment:
-#      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-#      AWS_ROLE_ARN: ${AWS_ROLE_ARN}
     steps:
       - run:
-          name: authenticate-and-interact
+          name: assume-role-and-interact
           command: |
-            # use the OpenID Connect token to obtain AWS credentials
+            # Use the OpenID Connect token to obtain AWS credentials
             read -r AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN \<<< \
               $(aws sts assume-role-with-web-identity \
                --role-arn ${AWS_ROLE_ARN} \
@@ -46,15 +43,20 @@ jobs:
                --duration-seconds 3600 \
                --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
                --output text)
+            # Set the AWS environmental variables
             export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
-            # interact with AWS
+            # See who we are
             aws --no-cli-pager sts get-caller-identity
+            # This will fail
+            aws s3 ls
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
+# See: https://circleci.com/docs/workflows/
+# https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  deploy-workflow:
     jobs:
       - deploy
-#      - say-hello
+      - pause_workflow:
+          requires:
+            - deploy
+          type: approval
