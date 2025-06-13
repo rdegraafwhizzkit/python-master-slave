@@ -12,7 +12,11 @@ class ExampleSlave(Slave):
         self.client = self.client or client('s3')
 
     def work(self, payload):
+        # Use Python 3.5+ for compatibility
         return {
-            'pid': self.pid,
-            'result': 0
-        } | payload
+            **{
+                'pid': self.pid,
+                'result': 0
+            },
+            **payload
+        }
