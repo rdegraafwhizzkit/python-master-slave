@@ -37,7 +37,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: assume-role-and-interact
+          name: Assume AWS role
           command: |
             # Use the OpenID Connect token to obtain AWS credentials
             read -r AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN \<<< \
@@ -54,7 +54,13 @@ jobs:
             aws --no-cli-pager sts get-caller-identity
             # List buckets
             aws s3 ls
-      - run: ls -al
+      - run:
+          name: Set up Python
+          command: |
+            ls -al
+            chmod 755 create_venv.sh
+            ./create_venv.sh
+            ls -la
 
 # See: https://circleci.com/docs/workflows/
 # https://circleci.com/docs/configuration-reference/#workflows
