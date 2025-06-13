@@ -3,7 +3,7 @@
 chmod 755 destroy_venv.sh
 ./destroy_venv.sh
 
-PYTHON=python3.11
+PYTHON=python3.8
 which ${PYTHON} > /dev/null 2>&1 || PYTHON=python3
 
 ${PYTHON} -m venv .venv
