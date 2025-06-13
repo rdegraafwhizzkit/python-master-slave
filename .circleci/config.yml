@@ -28,8 +28,8 @@ jobs:
     docker:
       - image: amazon/aws-cli
         auth:
-          username: ${DOCKERHUB_USER}
-          password: ${DOCKERHUB_PASSWORD}
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
     steps:
       - run:
           name: assume-role-and-interact
