@@ -55,7 +55,9 @@ jobs:
 workflows:
   deploy-workflow:
     jobs:
-      - deploy
+      - deploy:
+          context:
+            - banana
       - pause_workflow:
           requires:
             - deploy
