@@ -55,6 +55,10 @@ jobs:
             # List buckets
             aws s3 ls
       - run:
+          name: Test Python
+          command: |
+            python --version
+      - run:
           name: Set up Python
           command: |
             ls -al
