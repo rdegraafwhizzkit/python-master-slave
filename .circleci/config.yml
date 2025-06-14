@@ -12,13 +12,13 @@ jobs:
   deploy:
     resource_class: small
     docker:
-      - image: cimg/aws:2022.06.1
+      - image: cimg/aws:2025.01.1
         <<: *docker-auth
     steps:
       - checkout
       - aws-cli/setup:
           role_arn: ${AWS_ROLE_ARN}
-          region: ${AWS_REGION}
+          region: ${AWS_DEFAULT_REGION}
           role_session_name: "CircleCI-${CIRCLE_WORKFLOW_ID}-${CIRCLE_JOB}"
           session_duration: "3600"
       - run:
