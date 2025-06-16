@@ -8,6 +8,14 @@ docker-auth: &docker-auth
     username: ${DOCKERHUB_USER}
     password: ${DOCKERHUB_PASSWORD}
 
+commands: # a reusable command with parameters
+  greeting:
+    parameters:
+      to:
+        default: "world"
+        type: string
+    steps:
+      - run: echo "Hello <<parameters.to>>"
 jobs:
   deploy:
     resource_class: small
@@ -15,6 +23,8 @@ jobs:
       - image: cimg/aws:2025.01.1
         <<: *docker-auth
     steps:
+      - greeting:
+          to: 'Mister Guide'
       - checkout
       - aws-cli/setup:
           role_arn: ${AWS_ROLE_ARN}
