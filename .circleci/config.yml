@@ -28,7 +28,10 @@ jobs:
           to: 'Mister Guide'
       - checkout
       - python/install-packages:
-         pkg-manager: pip
+          pkg-manager: pip
+      - python/install-packages:
+          pip-dependency-file: requirements.txt
+          pkg-manager: pip
       - aws-cli/setup:
           role_arn: ${AWS_ROLE_ARN}
           region: ${AWS_DEFAULT_REGION}
