@@ -10,6 +10,7 @@ class ExampleSlave(Slave):
 
     def setup(self):
         self.client = self.client or client('s3')
+        print(self.client.list_buckets())
 
     def work(self, payload):
         # Use Python 3.5+ for compatibility
