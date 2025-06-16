@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@5.4.0
+  python: circleci/python@2.0.3
 
 docker-auth: &docker-auth
   auth:
@@ -26,6 +27,8 @@ jobs:
       - greeting:
           to: 'Mister Guide'
       - checkout
+      - python/install-packages:
+         pkg-manager: pip
       - aws-cli/setup:
           role_arn: ${AWS_ROLE_ARN}
           region: ${AWS_DEFAULT_REGION}
